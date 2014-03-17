@@ -9,7 +9,7 @@ func TestDBSync(t *testing.T) {
 	err := db.Sync(
 		new(User),
 		new(UserName),
-		new(UserDepiction),
+		new(UserImage),
 		new(UserMbox),
 	)
 	assert.NoError(t, err)
@@ -26,8 +26,8 @@ var (
 	testName = &UserName{
 		Name: "Test User",
 	}
-	testDepiction = &UserDepiction{
-		Depiction: "https://0.gravatar.com/avatar/39e047043fbfdf600dfe0230d92c32e5",
+	testImage = &UserImage{
+		Image: "https://0.gravatar.com/avatar/39e047043fbfdf600dfe0230d92c32e5",
 	}
 	testMbox = &UserMbox{
 		Mbox: "test@test.com",
@@ -40,13 +40,13 @@ func TestDBSave(t *testing.T) {
 	assert.NoError(t, err)
 
 	testName.User,
-		testMbox.User,
-		testDepiction.User =
+		testImage.User,
+		testMbox.User =
 		testUser.Id,
 		testUser.Id,
 		testUser.Id
 
-	n, err = db.Insert(testName, testMbox, testDepiction)
+	n, err = db.Insert(testName, testMbox, testImage)
 	assert.Equal(t, n, 3)
 	assert.NoError(t, err)
 }
@@ -82,11 +82,11 @@ func TestDBDelete(t *testing.T) {
 	assert.Equal(t, n, 1)
 	assert.NoError(t, err)
 
-	n, err = db.Delete(testMbox)
+	n, err = db.Delete(testImage)
 	assert.Equal(t, n, 1)
 	assert.NoError(t, err)
 
-	n, err = db.Delete(testDepiction)
+	n, err = db.Delete(testMbox)
 	assert.Equal(t, n, 1)
 	assert.NoError(t, err)
 }

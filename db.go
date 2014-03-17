@@ -20,9 +20,9 @@ type UserName struct {
 	Name string `xorm:"index varchar(1000) not null"`
 }
 
-type UserDepiction struct {
-	User      int64  `xorm:"index"`
-	Depiction string `xorm:"index varchar(1000) not null"`
+type UserImage struct {
+	User  int64  `xorm:"index"`
+	Image string `xorm:"index varchar(1000) not null"`
 }
 
 type UserMbox struct {
