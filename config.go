@@ -6,9 +6,7 @@ import (
 )
 
 var (
-	bind = flag.String("bind", "", "bind address")
-	dsn  = flag.String("dsn", "root@tcp(localhost:3306)/test", "")
-
+	dsn   = flag.String("dsn", "root@tcp(localhost:3306)/test", "")
 	debug = flag.Bool("debug", false, "")
 )
 
