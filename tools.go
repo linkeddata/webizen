@@ -1,7 +1,6 @@
 package webizen
 
 import (
-	// "log"
 	"strings"
 
 	"github.com/kierdavis/argo"
@@ -83,8 +82,9 @@ type result struct {
 
 func search(query string) (r map[string]result) {
 	r = map[string]result{}
-	uri := map[int64]string{}
 	id := map[string]int64{}
+	uri := map[int64]string{}
+	urik := map[int64]bool{}
 
 	for _, elt := range strings.Split(query, " ") {
 		if len(elt) < 6 {
@@ -94,6 +94,7 @@ func search(query string) (r map[string]result) {
 			for k, v := range assertURI(elt) {
 				id[k] = v
 				uri[v] = k
+				urik[v] = true
 			}
 		}
 	}
@@ -134,6 +135,28 @@ func search(query string) (r map[string]result) {
 		}
 
 		r[k] = v
+	}
+
+	for k := range urik {
+		if k < 1 {
+			continue
+		}
+		v := r[uri[k]]
+		if len(v.Name) == 0 {
+			db.Where("user = ?", k).Iterate(new(UserName), func(i int, bean interface{}) error {
+				elt := bean.(*UserName)
+				v.Name = append(v.Name, elt.Name)
+				return nil
+			})
+		}
+		if len(v.Image) == 0 {
+			db.Where("user = ?", k).Iterate(new(UserImage), func(i int, bean interface{}) error {
+				elt := bean.(*UserImage)
+				v.Image = append(v.Image, elt.Image)
+				return nil
+			})
+		}
+		r[uri[k]] = v
 	}
 	return
 }
