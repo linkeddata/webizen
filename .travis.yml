@@ -1,5 +1,7 @@
 language: go
 go: 1.2.1
 services: mysql
+before_install:
+ - sudo apt-get install -qq libraptor2-dev libmagic-dev
 before_script:
-  - go get -t ./...
+ - go get -t ./...
