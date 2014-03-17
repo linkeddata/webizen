@@ -1,6 +1,7 @@
 package webizen
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -28,7 +29,6 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		w.Header().Set("Accept-Patch", "application/json")
 		w.Header().Set("Accept-Post", "text/turtle,application/json")
 
-		// TODO: WAC
 		corsReqH := req.Header["Access-Control-Request-Headers"] // CORS preflight only
 		if len(corsReqH) > 0 {
 			w.Header().Set("Access-Control-Allow-Headers", strings.Join(corsReqH, ", "))
@@ -48,15 +48,19 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 	case "GET", "POST":
 		query := req.FormValue("q")
-		for _, elt := range strings.Split(query, " ") {
-			if len(elt) < 6 {
-				continue
-			}
-			if elt[:6] == "https:" || elt[:5] == "http:" {
-				assertURI(URI(elt))
+		if len(query) > 0 {
+			r := search(query)
+			if len(r) > 0 {
+				w.WriteHeader(200)
+				body, err := json.MarshalIndent(r, "", "  ")
+				if err == nil {
+					fmt.Fprintln(w, string(body))
+				} else {
+					log.Println(err)
+				}
+				return
 			}
 		}
-		log.Println("TODO", query)
 
 	default:
 		w.WriteHeader(405)

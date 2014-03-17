@@ -6,8 +6,8 @@ import (
 )
 
 var (
-	dsn   = flag.String("dsn", "root@tcp(localhost:3306)/test", "")
 	debug = flag.Bool("debug", false, "")
+	dsn   = flag.String("dsn", "root@tcp(localhost:3306)/test", "")
 )
 
 func init() {
