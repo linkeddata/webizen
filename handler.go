@@ -51,6 +51,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		if len(query) > 0 {
 			r := search(query)
 			if len(r) > 0 {
+				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(200)
 				body, err := json.MarshalIndent(r, "", "  ")
 				if err == nil {
