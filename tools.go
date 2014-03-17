@@ -83,7 +83,8 @@ type result struct {
 
 func search(query string) (r map[string]result) {
 	r = map[string]result{}
-	cache := map[int64]string{}
+	uri := map[int64]string{}
+	id := map[string]int64{}
 
 	for _, elt := range strings.Split(query, " ") {
 		if len(elt) < 6 {
@@ -91,18 +92,20 @@ func search(query string) (r map[string]result) {
 		}
 		if elt[:6] == "https:" || elt[:5] == "http:" {
 			for k, v := range assertURI(elt) {
-				cache[v] = k
+				id[k] = v
+				uri[v] = k
 			}
 		}
 	}
 
-	lookup := func(id int64) string {
-		if len(cache[id]) == 0 {
+	lookup := func(i int64) string {
+		if len(uri[i]) == 0 {
 			user := new(User)
-			db.Id(id).Get(user)
-			cache[user.Id] = user.Uri
+			db.Id(i).Get(user)
+			id[user.Uri] = user.Id
+			uri[user.Id] = user.Uri
 		}
-		return cache[id]
+		return uri[i]
 	}
 
 	db.Where("name LIKE ?", `%`+query+`%`).Iterate(new(UserName), func(i int, bean interface{}) error {
@@ -125,27 +128,12 @@ func search(query string) (r map[string]result) {
 		v := r[k]
 
 		var images []UserImage
-		db.Id(k).Find(&images)
+		db.Find(&images, &UserImage{User: id[k]})
 		for _, elt := range images {
 			v.Image = append(v.Image, elt.Image)
 		}
+
 		r[k] = v
 	}
-
-	// res1 := make([]User, 0)
-	// err := db.Cols("id").Where("uri LIKE ?", `%`+testUser.Uri+`%`).Find(&res1)
-	// assert.NoError(t, err)
-	// assert.Equal(t, res1[0].Id, testUser.Id)
-
-	// res2 := make([]UserName, 0)
-	// err = db.Cols("user").Where("name LIKE ?", `%test%`).Find(&res2)
-	// assert.NoError(t, err)
-	// assert.Equal(t, res2[0].User, testUser.Id)
-
-	// res3 := make([]UserMbox, 0)
-	// err = db.Cols("user").Where("mbox LIKE ?", `%test.com%`).Find(&res3)
-	// assert.NoError(t, err)
-	// assert.Equal(t, res3[0].User, testUser.Id)
-
 	return
 }
