@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/http/fcgi"
 
-	"github.com/webizen/webizen"
+	"github.com/linkeddata/webizen"
 )
 
 var (

@@ -1,7 +1,7 @@
-webizen [![Build Status](https://travis-ci.org/webizen/webizen.png?branch=master)](https://travis-ci.org/webizen/webizen)
+webizen [![Build Status](https://travis-ci.org/linkeddata/webizen.png?branch=master)](https://travis-ci.org/linkeddata/webizen)
 =======
 
-Please visit [webizen.org](http://webizen.org/)
+Please see [webizen.org](http://webizen.org/)
 
 License
 =======
