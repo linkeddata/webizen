@@ -13,12 +13,12 @@ function SearchCtrl($scope, $http) {
 
 		if (query.length > 0) {
 			// get results from server
+            $scope.search.loading = true;
 			$http.get('http://webizen.org/v1/search', {
 				params: {
 					q: query
 				}
 			}).then(function(res){
-				$scope.search.loading = true;
 				angular.forEach(res.data, function(value, key){
 					if (value) {
 						value.webid = key;
