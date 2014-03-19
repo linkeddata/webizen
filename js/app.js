@@ -18,7 +18,9 @@ function SearchCtrl($scope, $http) {
 				params: {
 					q: query
 				}
-			}).then(function(res){
+			}).error(function(res) {
+                $scope.search.loading = false;
+            }).then(function(res){
 				angular.forEach(res.data, function(value, key){
 					if (value) {
 						value.webid = key;
@@ -26,10 +28,12 @@ function SearchCtrl($scope, $http) {
 							value.img = ['img/photo.png'];
 						value.host = $scope.getHostname(key);
 						$scope.webidresults.push(value);
-					}
+					} else {
+				        $scope.search.loading = false;
+                    }
 				});
 				$scope.search.loading = false;
-			});
+            });
 		} else {
             $scope.search.loading = false;
         }
