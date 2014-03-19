@@ -9,11 +9,11 @@ function SearchCtrl($scope, $http) {
 		if (!$scope.search)
 			$scope.search;
 		$scope.search.selected = false;
+        $scope.search.loading = true;
 		$scope.webidresults = [];
 
 		if (query.length > 0) {
 			// get results from server
-            $scope.search.loading = true;
 			$http.get('http://webizen.org/v1/search', {
 				params: {
 					q: query
@@ -30,7 +30,9 @@ function SearchCtrl($scope, $http) {
 				});
 				$scope.search.loading = false;
 			});
-		}
+		} else {
+            $scope.search.loading = false;
+        }
 	}
 
 	// parse an uri and get the hostname
