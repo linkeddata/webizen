@@ -83,9 +83,9 @@ func assertURI(uri string) (uris map[string]int64) {
 }
 
 type result struct {
-	Image []string `json:"foaf:img,omitempty"`
-	Mbox  []string `json:"foaf:mbox,omitempty"`
-	Name  []string `json:"foaf:name,omitempty"`
+	Image []string `json:"img,omitempty"`
+	Mbox  []string `json:"mbox,omitempty"`
+	Name  []string `json:"name,omitempty"`
 }
 
 func search(query string) (r map[string]result) {
