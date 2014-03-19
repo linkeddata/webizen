@@ -68,16 +68,24 @@ func assertURI(uri string) (uris map[string]int64) {
 	}
 	for k, v := range mboxes {
 		db.Delete(&UserMbox{User: uris[k]})
-		db.InsertOne(&UserMbox{uris[k], v})
+		lst := strings.SplitN(v, "@", 2)
+		m, n := lst[0], ""
+		if len(lst) > 1 {
+			n = lst[1]
+		}
+		if len(m) > 7 && m[:7] == "mailto:" {
+			m = m[7:]
+		}
+		db.InsertOne(&UserMbox{uris[k], m, n})
 	}
 
 	return uris
 }
 
 type result struct {
-	Image []string `json:"image,omitempty"`
-	Mbox  []string `json:"mbox,omitempty"`
-	Name  []string `json:"name,omitempty"`
+	Image []string `json:"foaf:img,omitempty"`
+	Mbox  []string `json:"foaf:mbox,omitempty"`
+	Name  []string `json:"foaf:name,omitempty"`
 }
 
 func search(query string) (r map[string]result) {
@@ -117,10 +125,14 @@ func search(query string) (r map[string]result) {
 		return nil
 	})
 
-	db.Where("mbox LIKE ?", `%`+query+`%`).Iterate(new(UserMbox), func(i int, bean interface{}) error {
+	db.Where("local LIKE ?", `%`+query+`%`).Iterate(new(UserMbox), func(i int, bean interface{}) error {
 		elt := bean.(*UserMbox)
 		v := r[lookup(elt.User)]
-		v.Mbox = append(v.Mbox, elt.Mbox)
+		w := elt.Local
+		if len(elt.Domain) > 0 {
+			w += "@" + elt.Domain
+		}
+		v.Mbox = append(v.Mbox, w)
 		r[lookup(elt.User)] = v
 		return nil
 	})

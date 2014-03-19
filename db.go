@@ -26,8 +26,9 @@ type UserImage struct {
 }
 
 type UserMbox struct {
-	User int64  `xorm:"index"`
-	Mbox string `xorm:"index varchar(1000) not null"`
+	User   int64  `xorm:"index"`
+	Local  string `xorm:"index varchar(1000) not null"`
+	Domain string `xorm:"index varchar(1000) not null"`
 }
 
 var (

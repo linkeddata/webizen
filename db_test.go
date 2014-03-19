@@ -30,7 +30,8 @@ var (
 		Image: "https://0.gravatar.com/avatar/39e047043fbfdf600dfe0230d92c32e5",
 	}
 	testMbox = &UserMbox{
-		Mbox: "test@test.com",
+		Local:  "test",
+		Domain: "test.com",
 	}
 )
 
@@ -63,7 +64,7 @@ func TestDBSearch(t *testing.T) {
 	assert.Equal(t, res2[0].User, testUser.Id)
 
 	res3 := make([]UserMbox, 0)
-	err = db.Cols("user").Where("mbox LIKE ?", `%test.com%`).Find(&res3)
+	err = db.Cols("user").Where("local LIKE ?", `%test%`).Find(&res3)
 	assert.NoError(t, err)
 	assert.Equal(t, res3[0].User, testUser.Id)
 }
