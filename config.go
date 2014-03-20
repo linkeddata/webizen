@@ -14,5 +14,4 @@ func init() {
 	if v := os.Getenv("DSN"); len(v) > 0 {
 		*dsn = v
 	}
-	flag.Parse()
 }

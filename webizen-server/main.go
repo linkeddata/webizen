@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	bind = flag.String("bind", "", "bind address")
+	bind = flag.String("bind", "", "bind address (empty: fcgi)")
 
 	handler = new(webizen.Handler)
 )
