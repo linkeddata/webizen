@@ -10,6 +10,7 @@ function SearchCtrl($scope, $http) {
 			$scope.search;
 		$scope.search.selected = false;
         $scope.search.loading = true;
+        $scope.search.noresults = false;
 		$scope.webidresults = [];
 
 		if (query.length > 0) {
@@ -20,6 +21,7 @@ function SearchCtrl($scope, $http) {
 				}
 			}).error(function(res) {
                 $scope.search.loading = false;
+                $scope.search.noresults = true;
             }).then(function(res){
 				angular.forEach(res.data, function(value, key){
 					if (value) {
@@ -29,6 +31,7 @@ function SearchCtrl($scope, $http) {
 						value.host = $scope.getHostname(key);
 						$scope.webidresults.push(value);
 					} else {
+						$scope.search.noresults = true;
 				        $scope.search.loading = false;
                     }
 				});
