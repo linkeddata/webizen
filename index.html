@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="WebizenSearch" ng-csp>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>W E B I Z E N . O R G</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection">
+    <!-- favicon -->
+    <link rel="shortcut icon" type="img/png" href="favicon.png">
+    <!-- JS -->
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-ui.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+<body ng-cloak ng-controller="SearchCtrl" class="webizen">
+    <!-- search form -->
+    <div id="search" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title">
+                    W E B I Z E N . O R G
+                </div>
+                <div class="description">
+                    &gt; a searchable repository of webizens &lt;
+                </div>
+                <br>
+                <div class="box">
+                    <form>
+                        <input type="search" placeholder="Search for someone..." ng-model="search.query" ng-change="lookup(search.query)" ng-pattern="/^[A-Za-z0-9_#.:/]*$/" autofocus>
+                        <button ng-click="lookup(search.query)">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- spinner -->
+    <div ng-cloak id="loader" class="container" ng-show="search.loading">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Loading animation -->
+                <div class="clear-40">
+                  <div class="circle"></div><div class="circle1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- no results -->
+    <div class="container" ng-show="search.noresults">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Loading animation -->
+                <div class="description clear-40">
+                    No results found.
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- results -->
+    <searchResults ng-show="webidresults && webidresults.length > 0"></searchResults>
+</body>
+</html>
