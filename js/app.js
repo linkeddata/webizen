@@ -9,8 +9,8 @@ function SearchCtrl($scope, $http) {
 		if (!$scope.search)
 			$scope.search;
 		$scope.search.selected = false;
-        $scope.search.loading = true;
-        $scope.search.noresults = false;
+		$scope.search.loading = true;
+		$scope.search.noresults = false;
 		$scope.webidresults = [];
 
 		if (query.length > 0) {
@@ -20,9 +20,9 @@ function SearchCtrl($scope, $http) {
 					q: query
 				}
 			}).error(function(res) {
-                $scope.search.loading = false;
-                $scope.search.noresults = true;
-            }).then(function(res){
+				$scope.search.loading = false;
+				$scope.search.noresults = true;
+			}).then(function(res){
 				angular.forEach(res.data, function(value, key){
 					if (value) {
 						value.webid = key;
@@ -33,14 +33,14 @@ function SearchCtrl($scope, $http) {
 							$scope.webidresults.push(value);
 					} else {
 						$scope.search.noresults = true;
-				        $scope.search.loading = false;
-                    }
+						$scope.search.loading = false;
+					}
 				});
 				$scope.search.loading = false;
-            });
+			});
 		} else {
-            $scope.search.loading = false;
-        }
+			$scope.search.loading = false;
+		}
 	}
 
 	// parse an uri and get the hostname
