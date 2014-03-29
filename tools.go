@@ -37,6 +37,10 @@ func assertURI(uri string) (uris map[string]int64) {
 			v = o.Value
 		}
 
+		if len(k) < len(uri) || k[:len(uri)] != uri {
+			continue
+		}
+
 		if elt.Predicate.Equal(foaf.Get("name")) {
 			uris[k] = 0
 			names[k] = v
