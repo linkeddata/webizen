@@ -29,7 +29,8 @@ function SearchCtrl($scope, $http) {
 						if (!value.img)
 							value.img = ['img/photo.png'];
 						value.host = $scope.getHostname(key);
-						$scope.webidresults.push(value);
+						if ($scope.search.query == query)
+							$scope.webidresults.push(value);
 					} else {
 						$scope.search.noresults = true;
 				        $scope.search.loading = false;
