@@ -187,9 +187,11 @@ body {
 	float: right!important;
 }
 .thumb-pic {
-	width:70px;
-	padding-right: 5px;
-	height: 70px!important;
+	display: block;
+	max-width: 70px;
+	max-height: 70px;
+	width: auto;
+	height: auto;
 }
 .user {
 	position:relative;
@@ -201,7 +203,7 @@ body {
 }
 .userinfo {
 	position: absolute;
-	margin-left: 80px;
+	margin-left: 85px;
 	text-align: left;
 }
 .userinfo a, a:hover, a:visited {
