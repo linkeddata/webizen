@@ -15,7 +15,7 @@ function SearchCtrl($scope, $http) {
 
 		if (query.length > 0) {
 			// get results from server
-			$http.get('http://webizen.org/v1/search', {
+			$http.get('http://api.webizen.org/v1/search', {
 				params: {
 					q: query
 				}
