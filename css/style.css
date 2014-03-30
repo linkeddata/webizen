@@ -1,4 +1,3 @@
-
 body {
 	margin: 0px;
 	color: #fff;
@@ -209,7 +208,12 @@ body {
 .userinfo a, a:hover, a:visited {
 	color: #fff;
 }
-
+footer {
+	bottom: 5px;
+}
+footer a, footer a:visited {
+	color: #fff;
+}
 @-webkit-keyframes glow {
     0% {
 		border-color: #393;
