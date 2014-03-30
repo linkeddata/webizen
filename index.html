@@ -29,7 +29,7 @@
                 <br>
                 <div class="box">
                     <form>
-                        <input type="search" placeholder="Search for someone..." ng-model="search.query" ng-change="lookup(search.query)" ng-pattern="/^[A-Za-z0-9_#.:/]*$/" autofocus>
+                        <input type="search" placeholder="Search for someone..." ng-model="search.query" ng-change="lookup(search.query)" ng-trim="false" ng-pattern="/[A-Za-z0-9_#.:/\s]*$/" autofocus>
                         <button ng-click="lookup(search.query)">Search</button>
                     </form>
                 </div>
