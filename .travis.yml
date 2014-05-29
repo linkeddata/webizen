@@ -5,3 +5,7 @@ before_install:
  - sudo apt-get install -qq libraptor2-dev libmagic-dev
 before_script:
  - go get -t ./...
+ 
+branches:
+  only:
+    - master
