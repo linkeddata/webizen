@@ -1,7 +1,7 @@
 language: go
 go:
  - 1.2.2
- - 1.3rc1
+ - 1.3rc2
 services: mysql
 before_install:
  - sudo apt-get update -qq && sudo apt-get install -qq libraptor2-dev libmagic-dev
