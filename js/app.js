@@ -1,5 +1,4 @@
-var Webizen = angular.module('WebizenSearch', ['ui','ui.filters']);
-
+var Webizen = angular.module('WebizenSearch', ['ui','ui.filters','rt.encodeuri']);
 // Main angular controller
 function SearchCtrl($scope, $http) {
 	$scope.search = [];

@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="box user">
                 <div class="pull-left">
-                    <img class="media-object thumb-pic" ng-src="{{person.img[0]}}">
+                    <img class="media-object thumb-pic" ng-src="{{person.img[0]}}" alt="Photo of {{person.name[0]}}">
                 </div>
                 <div class="pull-left userinfo">
                     <strong>
@@ -18,9 +18,11 @@
                         </span>
                     </small>
                     <br>
-                    <small rel="tooltip" data-placement="top" title="{{person.webid}}"><a href="{{person.webid}}" target="_blank">
-                        {{person.webid.length>65?person.webid.slice(0, 65)+'...':person.webid}}
-                    </a></small>
+                    <small rel="tooltip" data-placement="top" title="{{person.webid}}">
+                       <a href="https://linkeddata.github.io/profile-editor/#/view?webid={{person.webid|encodeUri}}" target="_blank">
+                         {{person.webid.length>65?person.webid.slice(0, 65)+'...':person.webid}}
+                       </a>
+                    </small>
                     </h4>
                 </div>
             </div>
